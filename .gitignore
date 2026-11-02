@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+
+# DB dump (chứa dữ liệu account thật, không push lên repo public)
+*.sql
+*.tsbuildinfo

@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mariadb:10.4
+    container_name: nro-mysql
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MYSQL_PASSWORD:-root}
+      MARIADB_DATABASE: ${MYSQL_DATABASE:-nro1}
+    ports:
+      - "3306:3306"
+    volumes:
+      - nro_mysql_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  nro_mysql_data:
